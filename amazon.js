@@ -36,13 +36,13 @@ const amazon = {
             let manufacturer = document.querySelector('#bylineInfo').innerText; 
             let availability = document.querySelector('#availability').innerText;
             let price = document.querySelector('#priceblock_ourprice').innerText;
-            let info = document.querySelectorAll('#productDetails_detailBullets_sections1 > tbody > tr').innerText;
+            
             return {
                 title,
                 manufacturer,
                 availability,
                 price,
-                info
+                
 
             }
         });
@@ -53,7 +53,6 @@ const amazon = {
 
     end: async () => {
 
-        console.log('Stopping the scraper...');
 
         await browser.close();
     }
