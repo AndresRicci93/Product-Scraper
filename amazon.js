@@ -10,8 +10,6 @@ const amazon = {
     initialize: async () => {
         browser = await puppeteer.launch({
 
-
-
             headless: false
         })
 
@@ -23,6 +21,22 @@ const amazon = {
 
     },
 
+    bestDeal: async (link) => {
+
+
+        await page.goto(link, { waitUntil: 'networkidle2' }); 
+  
+        let deals = await page.evaluate(() => {
+  
+            const prices = [
+                ...document.querySelectorAll('.a-section.a-spacing-double-large > .a-row.a-spacing-mini.olpOffer > .a-column.a-span2.olpPriceColumn')
+            ].map((nodePrices) => nodePrices.innerText);
+        
+            return prices.map((price, i) => ({price: price}));
+        })
+  
+  return deals;
+      },
 
     getProductDetails: async (link) => {
 
@@ -38,12 +52,12 @@ const amazon = {
             let price = document.querySelector('#priceblock_ourprice').innerText;
             
             return {
+
                 title,
                 manufacturer,
                 availability,
                 price,
                 
-
             }
         });
 
@@ -53,8 +67,8 @@ const amazon = {
 
     end: async () => {
 
-
         await browser.close();
+        
     }
 
 }
